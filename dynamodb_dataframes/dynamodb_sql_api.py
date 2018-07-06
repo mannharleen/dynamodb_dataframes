@@ -84,7 +84,10 @@ def runSql_API(l_sql_user_input=[]):
                     l_parsed_text = [l_sql_user_input[3], 'select', parsed_predicates]
             # todo -- else: !!! cater for select <col1> from...
             try:
-                return pd.DataFrame( dynamodb_base_api.run(l_parsed_text))
+                returned_rows = dynamodb_base_api.run(l_parsed_text)
+                if isinstance(returned_rows, dict):
+                    returned_rows = [returned_rows]     # convert dict to list of dict for easy pandas conversion
+                return pd.DataFrame( returned_rows)
             except:
                 logger.exception(" Unable to understand input. Type help if unsure.")
         elif l_sql_user_input[0] == 'insert' and l_sql_user_input[1] == 'into' and l_sql_user_input[4] == 'values': # insert into table1 (pk,sk,col1) values ('a','b','c')
