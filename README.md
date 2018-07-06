@@ -2,24 +2,38 @@
 
 ## Objective
 
-To create a SQL parses for AWS dynamodb that will enable:
+To create an easy to use API for AWS dynamodb that will enable:
 1. SQL command line for SQL/DML/DDL operations  
-2. SQL API for all those operations
+2. SQL API for all those operations, that will return a dataframe (pandas)
 
 ## Motivation
 
-SQL is the mostly widely used and know language across the board. So why not empower the users and developers!
+Two simple motivations:
+1. Make the dynamodb API simpler by using SQL, DML and DDL statements
+2. dynamodb doesn't allow joins and other complex transformations (sometimes this is required)
 
-## Short term object
+## Objective
 
-1. To parse simple SQL statements to create, insert and select data (without predicates, aggregations, sorting etc)
+1. Creating an API that returns the data in dynamodb as a pandas dataframe. Data transformation made easy!
 
 ## Installation
 
 ### From github
 
+This is the recommended way (unless I decided to publish this package on pypi)
+Simply run the following in the command/shell prompt
 ```sh
 pip install git+https://github.com/mannharleen/dynamodb_dataframes.git
+```
+
+## From local filesystem
+
+This should be only used if you are not able to connect to github from the machine where you need to pip install
+
+Download the required version file from https://github.com/mannharleen/dynamodb_dataframes/tree/master/dist and copy to the machine lets say on into the folder C:\dist\
+Then run the following in the command/shell prompt
+```sh
+pip install dynamodb_dataframes --no-index --find-links file://C:\dist
 ```
 
 ## Usage
@@ -31,7 +45,7 @@ from dynamodb_dataframes import dynamodb_sql_api
 
 dynamodb_sql_api.dynamodb_base_api.dyanamoOps.setup()
 print (dynamodb_sql_api.sql("show tables"))
-                                        # return a string of the result, which can be printed
+                                        # return the result as object.__str()__, which can be printed
                                         # In the future, this will return a pandas dataframe
 ```
 
