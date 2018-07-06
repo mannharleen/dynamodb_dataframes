@@ -7,7 +7,11 @@ logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
 
 
-def setup():
+def setup(**kwargs):
+    dynamodb_base_api.dyanamoOps.setup(**kwargs)
+
+
+def setupREPL():
     print('## Enter values or simply press enter to use default values ##')
     region_name = {'region_name': input('Enter region_name ')}
     aws_access_key_id = {'aws_access_key_id': input('Enter aws_access_key_id ')}
@@ -109,8 +113,8 @@ def runSql_API(l_sql_user_input=[]):
 
 
 def run(argv):
-    #setup()                                !!!!!!!!!!!!!!!!!!! uncomment before going live!
-    dynamodb_base_api.dyanamoOps.setup()  #   !!!!!!!!!!!!    comment this
+    setupREPL()
+    #dynamodb_base_api.dyanamoOps.setup()
     user_input = ''
     while user_input != 'exit':
         user_input = runSqlREPL()
