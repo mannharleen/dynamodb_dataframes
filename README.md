@@ -43,7 +43,7 @@ pip install dynamodb_dataframes --no-index --find-links file://C:\dist
 ```python
 from dynamodb_dataframes import dynamodb_sql_api
 
-dynamodb_sql_api.dynamodb_base_api.dyanamoOps.setup()
+dynamodb_sql_api.setup()                                    # this will use default config, see below section on configuration for details
 print (dynamodb_sql_api.sql("show tables"))     
 print (dynamodb_sql_api.sql("select * from table1ss"))     # prints the returned pandas dataframe 
 ```
@@ -54,4 +54,24 @@ print (dynamodb_sql_api.sql("select * from table1ss"))     # prints the returned
 $ python dynamodb_sql_api.py
 sql> show tables;
 sql> describe table1ss;
+```
+
+## Configuration for dynamodb server
+
+1. For the SQL API, configuration can be made either via a config file or via passing parameters progrmatically
+2. For the SQL prompt, configuration will be asked for. If the user presses enters, default values are taken
+
+When initializing the SQL API, you can set the config as follows:
+```python
+dynamodb_sql_api.setup('/home/config.ini')              #-- if you want to specify location of config file
+dynamodb_sql_api.setup(aws_access_key_id=ABC, ....)     #-- if you want to specify config as paramters
+```
+
+If no configuration is provided, the program defaults to point to local instance of dynamodb, i.e. using the following values:
+```bash
+[DEFAULT]
+region_name = us-west-2
+aws_access_key_id =  
+aws_secret_access_key =  
+endpoint_url = http://localhost:8000
 ```
