@@ -2,6 +2,7 @@ import boto3
 import os
 import logging
 import sys
+import configparser
 from decimal import *
 
 os.environ['http_proxy'] = ''
@@ -18,11 +19,36 @@ class dyanamoOps:
 
     @classmethod
     def setup(cls, **kwargs):
-        cls.session = boto3.session.Session(region_name=kwargs.get('region_name', 'us-west-2'),
-                                            aws_access_key_id=kwargs.get('aws_access_key_id', ' '),
-                                            aws_secret_access_key=kwargs.get('aws_secret_access_key', ' '))
+        """ Config file will be looked by default in the current directory where the code is run
+            The user can choose to supply the config file location using the key config_file_location
+            Similarly, other parameters can be provided as paramters as well
+
+            The config file should look as follows:
+                [DEFAULT]
+                region_name = <value here>
+                aws_access_key_id = <value here>
+                aws_secret_access_key = <value here>
+                endpoint_url = <value here>
+        """
+        config = configparser.ConfigParser()
+        config.read(kwargs.get('config_file_location', "./dynamodb_dataframes_config.ini"))
+        default_config = config['DEFAULT']
+        region_name = default_config.get('region_name', 'us-west-2')
+        aws_access_key_id = default_config.get('aws_access_key_id', ' ')
+        aws_secret_access_key = default_config.get('aws_secret_access_key', ' ')
+        endpoint_url = default_config.get('endpoint_url', 'http://localhost:8000')
+
+        cls.session = boto3.session.Session(region_name=kwargs.get('region_name', region_name),
+        aws_access_key_id=kwargs.get('aws_access_key_id', aws_access_key_id),
+        aws_secret_access_key=kwargs.get('aws_secret_access_key', aws_secret_access_key))
         cls.resource = cls.session.resource('dynamodb',
-                                            endpoint_url=kwargs.get('endpoint_url', 'http://localhost:8000'))
+                                            endpoint_url=kwargs.get('endpoint_url', endpoint_url))
+
+        #cls.session = boto3.session.Session(region_name=kwargs.get('region_name', 'us-west-2'),
+        #                                    aws_access_key_id=kwargs.get('aws_access_key_id', ' '),
+        #                                    aws_secret_access_key=kwargs.get('aws_secret_access_key', ' '))
+        #cls.resource = cls.session.resource('dynamodb',
+        #                                    endpoint_url=kwargs.get('endpoint_url', 'http://localhost:8000'))
         cls.client = cls.resource.meta.client
         # other ways of creating client:
         # client = boto3.client('dynamodb', endpoint_url='http://localhost:8000', region_name='us-west-2', aws_access_key_id=' ', aws_secret_access_key=' ')
