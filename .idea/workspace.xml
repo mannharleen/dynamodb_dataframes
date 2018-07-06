@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ee4fda1a-273b-4d68-9faa-258dbc5a6686" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/sql-for-dynamodb/dynamodb_sql_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql-for-dynamodb/dynamodb_sql_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql-for-dynamodb/test_dynamodb.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql-for-dynamodb/test_dynamodb.py" afterDir="false" />
-    </list>
+    <list default="true" id="ee4fda1a-273b-4d68-9faa-258dbc5a6686" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +72,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/sql-for-dynamodb" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -183,6 +180,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1076" y="-1088" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14857745" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -302,7 +300,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dynamodb_dataframes/README.md">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="14" column="31" lean-forward="true" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />

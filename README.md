@@ -14,6 +14,14 @@ SQL is the mostly widely used and know language across the board. So why not emp
 
 1. To parse simple SQL statements to create, insert and select data (without predicates, aggregations, sorting etc)
 
+## Installation
+
+### From github
+
+```sh
+pip install git+https://github.com/mannharleen/dynamodb_dataframes.git
+```
+
 ## Usage
 
 ### Using the SQL API:
@@ -26,6 +34,7 @@ print (dynamodb_sql_api.sql("show tables"))
                                         # return a string of the result, which can be printed
                                         # In the future, this will return a pandas dataframe
 ```
+
 ### Using the SQL prompt:
 
 ```sh
