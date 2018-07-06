@@ -1,0 +1,2 @@
+venv/*
+dynamodb_dataframes/__pycache__/*

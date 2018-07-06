@@ -1,0 +1,9 @@
+setup.py
+dynamodb_dataframes/__init__.py
+dynamodb_dataframes/dynamodb_base_api.py
+dynamodb_dataframes/dynamodb_sql_api.py
+dynamodb_dataframes/test_dynamodb.py
+dynamodb_dataframes.egg-info/PKG-INFO
+dynamodb_dataframes.egg-info/SOURCES.txt
+dynamodb_dataframes.egg-info/dependency_links.txt
+dynamodb_dataframes.egg-info/top_level.txt
