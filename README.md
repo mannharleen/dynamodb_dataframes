@@ -44,9 +44,8 @@ pip install dynamodb_dataframes --no-index --find-links file://C:\dist
 from dynamodb_dataframes import dynamodb_sql_api
 
 dynamodb_sql_api.dynamodb_base_api.dyanamoOps.setup()
-print (dynamodb_sql_api.sql("show tables"))
-                                        # return the result as object.__str()__, which can be printed
-                                        # In the future, this will return a pandas dataframe
+print (dynamodb_sql_api.sql("show tables"))     
+print (dynamodb_sql_api.sql("select * from table1ss"))     # prints the returned pandas dataframe 
 ```
 
 ### Using the SQL prompt:

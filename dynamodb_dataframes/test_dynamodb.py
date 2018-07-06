@@ -32,7 +32,11 @@ class TestMethods(unittest.TestCase):
     def test_4_runDynamoAPI_insertTables(self):
         try:
             print(str(
-                dynamodb_sql_api.dynamodb_base_api.run(['table1ss', 'insert', "pk,'1',sk,'1',col1,'val1'"])) + ' inserted values 1 1 val1')
+                dynamodb_sql_api.dynamodb_base_api.run(
+                    ['table1ss', 'insert', "pk,'1',sk,'1',col1,'val1'"])) + ' inserted values 1 1 val1')
+            print(str(
+                dynamodb_sql_api.dynamodb_base_api.run(
+                    ['table1ss', 'insert', "pk,'2',sk,'2',col1,'val2'"])) + ' inserted values 1 1 val1')
             print(str(
                 dynamodb_sql_api.dynamodb_base_api.run(['table1ns', 'insert', "pk,1,sk,'1',col1,'val1'"])) + ' inserted values 1 1 val1')
             print(str(

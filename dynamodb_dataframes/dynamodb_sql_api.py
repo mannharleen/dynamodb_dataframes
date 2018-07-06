@@ -1,5 +1,6 @@
 from dynamodb_dataframes import dynamodb_base_api
 import sys, os, logging
+import pandas as pd
 
 
 logging.basicConfig(level=logging.WARN)
@@ -83,7 +84,7 @@ def runSql_API(l_sql_user_input=[]):
                     l_parsed_text = [l_sql_user_input[3], 'select', parsed_predicates]
             # else: !!! cater for select <col1> from...
             try:
-                return dynamodb_base_api.run(l_parsed_text)
+                return pd.DataFrame( dynamodb_base_api.run(l_parsed_text))
             except:
                 logger.exception(" Unable to understand input. Type help if unsure.")
         elif l_sql_user_input[0] == 'insert' and l_sql_user_input[1] == 'into' and l_sql_user_input[4] == 'values': # insert into table1 (pk,sk,col1) values ('a','b','c')
