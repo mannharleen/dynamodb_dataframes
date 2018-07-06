@@ -3,7 +3,7 @@
 ## Objective
 
 To create a SQL parses for AWS dynamodb that will enable:
-1. SQL command line for SQL/DML/DDL operations 
+1. SQL command line for SQL/DML/DDL operations  
 2. SQL API for all those operations
 
 ## Motivation
