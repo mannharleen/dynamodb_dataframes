@@ -82,7 +82,7 @@ def runSql_API(l_sql_user_input=[]):
                     predicates = ''.join(l_sql_user_input[5:]).replace(' ','')               # a='x'andb=2
                     parsed_predicates = predicates.replace('=', ',').replace('and', ',')            # a,1,b,2
                     l_parsed_text = [l_sql_user_input[3], 'select', parsed_predicates]
-            # else: !!! cater for select <col1> from...
+            # todo -- else: !!! cater for select <col1> from...
             try:
                 return pd.DataFrame( dynamodb_base_api.run(l_parsed_text))
             except:
