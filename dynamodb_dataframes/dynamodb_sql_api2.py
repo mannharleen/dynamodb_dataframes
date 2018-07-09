@@ -4,9 +4,11 @@ import pandas as pd
 import regex
 
 
-logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
-
+ch = logging.StreamHandler()
+ch.setFormatter(logging.Formatter('%(asctime)s %(levelname)8s %(name)s | %(message)s'))
+logger.addHandler(ch)
+logger.setLevel(logging.INFO)
 
 def setup(**kwargs):
     dynamodb_base_api.dyanamoOps.setup(**kwargs)
@@ -38,6 +40,7 @@ def runSql_API(sql_user_input=''):
             else:
                 inp_left_where = inp_right_from
                 inp_right_where = ''
+            logger.info(" Table {} selecting using sql_api2".format(inp_left_where.strip()))
             #
             rx_cols = regex.match(r'\s*(select)\s+(\s*(\*|\w+)\s*,?)+', inp_left_from)
             l_cols = rx_cols.captures(3)

@@ -11,8 +11,12 @@ os.environ['https_proxy'] = ''
 # NOTE: a bug in dateutil package that boto3 uses was fixed by using:        https://stackoverflow.com/a/43688152/5992714
 
 class dyanamoOps:
-    logging.basicConfig(level=logging.WARNING)  # class variables
+    #logging.basicConfig(level=logging.INFO)  # class variables
     logger = logging.getLogger(__name__)
+    ch = logging.StreamHandler()
+    ch.setFormatter(logging.Formatter('%(asctime)s %(levelname)8s %(name)s | %(message)s'))
+    logger.addHandler(ch)
+    logger.setLevel(logging.INFO)
 
     def __init__(self, tableName='table1'):
         self.tableName = tableName  # instance variables
@@ -194,7 +198,7 @@ class dyanamoOps:
                 #dyanamoOps.listTables()
                 return self.tableName
         else:
-            self.logger.warn(" Table \"{}\" does not exist".format(self.tableName))
+            self.logger.warning(" Table \"{}\" does not exist".format(self.tableName))
 
     def insertTable(self, l_data):
         table = self.resource.Table(self.tableName)
@@ -225,7 +229,7 @@ class dyanamoOps:
                     #sys.exit()
                 #
                 self.logger.info(" Table \"{}\" data selected".format(self.tableName))
-                if isPrint == True:
+                if isPrint:
                     print(res['Items'])
                 return res['Items']
             else:
@@ -236,12 +240,12 @@ class dyanamoOps:
                            [Decimal(x) if not x.__contains__("'") else x for x in kv_data_all_string.values()]))
                     res = table.get_item(Key=kv_data)
                     self.logger.info(" Table \"{}\" data selected".format(self.tableName))
-                    if (res.keys().__contains__('Item')):
-                        if isPrint == True:
+                    if res.keys().__contains__('Item'):
+                        if isPrint:
                             print(res['Item'])
                         return res['Item']
                     else:
-                        if isPrint == True:
+                        if isPrint:
                             print({})
                         return [{}]
                 except:

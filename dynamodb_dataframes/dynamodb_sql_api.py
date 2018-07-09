@@ -3,8 +3,11 @@ import sys, os, logging, re
 import pandas as pd
 
 
-logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
+ch = logging.StreamHandler()
+ch.setFormatter(logging.Formatter('%(asctime)s %(levelname)8s %(name)s | %(message)s'))
+logger.addHandler(ch)
+logger.setLevel(logging.INFO)
 
 
 def setup(**kwargs):
