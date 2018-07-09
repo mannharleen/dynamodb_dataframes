@@ -10,6 +10,7 @@ ch.setFormatter(logging.Formatter('%(asctime)s %(levelname)8s %(name)s | %(messa
 logger.addHandler(ch)
 logger.setLevel(logging.WARN)
 
+
 def setup(**kwargs):
     dynamodb_base_api.dyanamoOps.setup(**kwargs)
 
