@@ -42,16 +42,16 @@ pip install dynamodb_dataframes --no-index --find-links file://C:\dist
 
 ```python
 from dynamodb_dataframes import dynamodb_sql_api
+from dynamodb_dataframes import dynamodb_sql_api2
 import logging
 
-#-- this will use default config, see below section on configuration for details
-dynamodb_sql_api.setup()                                                   
-
+#-- using api1
+dynamodb_sql_api.setup()                                #-- this will use default config, see below section on custom config
 print (dynamodb_sql_api.sql("show tables"))
-#-- older api, advised not to use.          -- prints the returned pandas dataframe
-print (dynamodb_sql_api.sql("select * from table1ss"))
-#-- prints the returned pandas dataframe    -- this uses api2
-print (dynamodb_sql_api2.sql("select * from table1ss", logging.INFO))      
+print (dynamodb_sql_api.sql("select * from table1ss"))  #-- prints the returned pandas dataframe
+
+#-- using api2
+print (dynamodb_sql_api2.sql("select * from table1ss", logging.INFO))      #-- prints the returned pandas dataframe and sets the logging level
 ```
 For more examples visit https://github.com/mannharleen/dynamodb_dataframes/tree/master/examples
 
