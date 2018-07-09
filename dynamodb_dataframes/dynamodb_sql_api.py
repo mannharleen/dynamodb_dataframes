@@ -1,5 +1,5 @@
 from dynamodb_dataframes import dynamodb_base_api
-import sys, os, logging
+import sys, os, logging, re
 import pandas as pd
 
 
@@ -27,7 +27,7 @@ def setupREPL():
 def runCommand():
     user_input = input('Type command [or help or exit] here \n')
     if user_input != 'exit':
-        dynamodb_base_api.run(user_input.split(' '))
+        dynamodb_base_api.run(user_input.split())
     return user_input
 
 
@@ -60,12 +60,19 @@ def sql(sql_api_input):
     """
     Used to take input from the API and call runSql
     """
-    l_sql_api_input = sql_api_input.split(' ')
+    # singleq_replaced_by = "'!@#"
+    # space_replaced_by = '@#$'
+    # l_sql_api_input_splitsq = sql_api_input.replace("'", singleq_replaced_by).split("'")
+    # sql_api_input_catered = ''.join(list(map(lambda x: x.replace(' ', space_replaced_by).replace(singleq_replaced_by[1:], "'") if x.__contains__(singleq_replaced_by[1:]) else x, l_sql_api_input_splitsq)))
+    # print (sql_api_input)
+    # print(sql_api_input_catered)
+    # l_sql_api_input = sql_api_input_catered.split()
+    l_sql_api_input = sql_api_input.split()        #original works
     return runSql_API(l_sql_api_input)
 
 
 def runSql_API(l_sql_user_input=[]):
-    l_sql_user_input = [x.lower() for x in l_sql_user_input]
+    l_sql_user_input = [x.lower().strip() for x in l_sql_user_input]
 
     if any(x.__contains__('"') for x in l_sql_user_input) :
         logger.exception(' SQL must not contain double quotes ". Type help if unsure.')

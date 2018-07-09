@@ -66,9 +66,10 @@ class TestMethods(unittest.TestCase):
 
     def test_8_runSqlAPI_selectwhere(self):
         try:
-            print (dynamodb_sql_api.sql("select * from table1ss where pk='1' and sk='1'"))
-            print(dynamodb_sql_api.sql("select * from table1ns where pk=1 and sk='1'"))
-            print(dynamodb_sql_api.sql("select * from table1nn where pk=1 and sk=1"))
+            print (dynamodb_sql_api.sql("   select      *   from    table1ss where pk='1'   and   sk =  '1'"))
+            print(dynamodb_sql_api.sql("select * from table1ns where pk=   01 and sk='1' "))
+            print(dynamodb_sql_api.sql("select * from table1nn where pk=1 and sk=     1     "))
+            #print(dynamodb_sql_api.sql("select * from table1ns where pk=1 and sk='     1     '"))
         except:
             self.fail("exception occured")
 
@@ -106,9 +107,9 @@ class TestMethods(unittest.TestCase):
 
     def test_94_runSqlAPI_SQLwithDoubleQuotes(self):
         with self.assertRaises(Exception):
-            dynamodb_sql_api.sql('select * from table1ss where pk = "1"')
+            dynamodb_sql_api.sql('select *     from     table1ss where pk = "1"')
 
-    def test_94_runSqlAPI_describeTable(self):
+    def test_95_runSqlAPI_describeTable(self):
         try:
             print(dynamodb_sql_api.sql('describe table1ss'))
         except:
