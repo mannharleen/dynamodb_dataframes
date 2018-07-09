@@ -8,18 +8,20 @@ from decimal import *
 os.environ['http_proxy'] = ''
 os.environ['https_proxy'] = ''
 
-# NOTE: a bug in dateutil package that boto3 uses was fixed by using:        https://stackoverflow.com/a/43688152/5992714
+# NOTE: a bug in dateutil package that boto3 uses was fixed by using:
+#     https://stackoverflow.com/a/43688152/5992714
+
 
 class dyanamoOps:
-    #logging.basicConfig(level=logging.INFO)  # class variables
     logger = logging.getLogger(__name__)
     ch = logging.StreamHandler()
     ch.setFormatter(logging.Formatter('%(asctime)s %(levelname)8s %(name)s | %(message)s'))
     logger.addHandler(ch)
-    logger.setLevel(logging.INFO)
+    #logger.setLevel(logging.INFO)
 
-    def __init__(self, tableName='table1'):
+    def __init__(self, tableName='table1', level=logging.WARNING):
         self.tableName = tableName  # instance variables
+        self.logger.setLevel(level)
 
     @classmethod
     def setup(cls, **kwargs):
@@ -55,7 +57,8 @@ class dyanamoOps:
         #                                    endpoint_url=kwargs.get('endpoint_url', 'http://localhost:8000'))
         cls.client = cls.resource.meta.client
         # other ways of creating client:
-        # client = boto3.client('dynamodb', endpoint_url='http://localhost:8000', region_name='us-west-2', aws_access_key_id=' ', aws_secret_access_key=' ')
+        # client = boto3.client('dynamodb', endpoint_url='http://localhost:8000', region_name='us-west-2',
+        #                         aws_access_key_id=' ', aws_secret_access_key=' ')
         # client = session.client('dynamodb', endpoint_url='http://localhost:8000')
 
     @staticmethod
@@ -255,7 +258,7 @@ class dyanamoOps:
             self.logger.exception(" Table \"{}\" does not exist".format(self.tableName))
 
 
-def run(argv):
+def run(argv, level=logging.WARNING):
     #print(argv)
     if len(argv) >= 1:
         if len(argv) == 1:
@@ -266,7 +269,7 @@ def run(argv):
             else:
                 dyanamoOps.logger.warning(" Incorrect paramters. Type help for usage")
         else:
-            tbl = dyanamoOps(str(argv[0]))
+            tbl = dyanamoOps(str(argv[0]), level)
             if len(argv) >= 2:
                 if argv[1] == 'describe':
                     tbl.logger.info(" Table {} will be described now".format(tbl.tableName))

@@ -3,7 +3,6 @@ from dynamodb_dataframes import dynamodb_sql_api
 
 class TestMethods(unittest.TestCase):
 
-    #dynamodb_sql_api.dynamodb_base_api.dyanamoOps.setup()
     dynamodb_sql_api.setup()
 
     def test_1_runDynamoAPI_dropTables(self):

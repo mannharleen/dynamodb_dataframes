@@ -8,23 +8,25 @@ logger = logging.getLogger(__name__)
 ch = logging.StreamHandler()
 ch.setFormatter(logging.Formatter('%(asctime)s %(levelname)8s %(name)s | %(message)s'))
 logger.addHandler(ch)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.WARN)
 
 def setup(**kwargs):
     dynamodb_base_api.dyanamoOps.setup(**kwargs)
 
 
-def sql(sql_api_input):
+def sql(sql_api_input, level=logging.WARN):
     """
     Used to take input from the API and call runSql
     """
-    return runSql_API(sql_api_input)
+    return runSql_API(sql_api_input, level)
 
 
-def runSql_API(sql_user_input=''):
+def runSql_API(sql_user_input='', level=logging.WARN):
     """
     Making the sql parser more robust by using regex to parse sql statements
     """
+    global logger
+    logger.setLevel(level)
     inp = sql_user_input.lower()     # select..... full sql
 
     if sql_user_input.__contains__('"'):
@@ -40,6 +42,7 @@ def runSql_API(sql_user_input=''):
             else:
                 inp_left_where = inp_right_from
                 inp_right_where = ''
+            #
             logger.info(" Table {} selecting using sql_api2".format(inp_left_where.strip()))
             #
             rx_cols = regex.match(r'\s*(select)\s+(\s*(\*|\w+)\s*,?)+', inp_left_from)
@@ -60,7 +63,7 @@ def runSql_API(sql_user_input=''):
                    # todo -- else: !!! cater for select <col1> from...
             l_parsed_text = [inp_left_where.strip(), 'select', ','.join(l_predicates)]
             try:
-                returned_rows = dynamodb_base_api.run(l_parsed_text)
+                returned_rows = dynamodb_base_api.run(l_parsed_text, level)
                 if isinstance(returned_rows, dict):
                     returned_rows = [returned_rows]     # convert dict to list of dict for easy pandas conversion
                 return pd.DataFrame( returned_rows)
