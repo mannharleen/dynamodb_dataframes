@@ -1,5 +1,7 @@
 # dynamodb_dataframes
 [![Build Status](https://travis-ci.org/mannharleen/dynamodb_dataframes.svg?branch=master)](https://travis-ci.org/mannharleen/dynamodb_dataframes)
+[![Coverage Status](https://coveralls.io/repos/github/mannharleen/dynamodb_dataframes/badge.svg?branch=master)](https://coveralls.io/github/mannharleen/dynamodb_dataframes?branch=master)
+[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/mannharleen)
 
 ## Objective
 
