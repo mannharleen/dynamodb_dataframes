@@ -7,7 +7,7 @@ before_script:
   - tar -xvzf dynamodb_local_latest.tar.gz
   - pwd
   - ls
-  - cd dynamodb_local_latest
+  #- cd dynamodb_local_latest
   - java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 #
 script: python dynamodb_dataframes/tests/test_dynamodb.py
