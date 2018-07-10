@@ -1,5 +1,6 @@
-import unittest, time
+import unittest
 from dynamodb_dataframes import dynamodb_sql_api
+
 
 class TestMethods(unittest.TestCase):
 
@@ -123,3 +124,5 @@ class TestMethods(unittest.TestCase):
         except:
             self.fail("exception occured")
 
+if __name__ == '__main__':
+    unittest.main()
