@@ -239,8 +239,19 @@ class dyanamoOps:
                 try:
                     iter_data = iter(data.split(','))
                     kv_data_all_string = dict(zip(iter_data, iter_data))
+                    #print (kv_data_all_string)
                     kv_data = dict(zip(kv_data_all_string.keys(),
                            [Decimal(x) if not x.__contains__("'") else x for x in kv_data_all_string.values()]))
+                    #!!!--
+                    # if no predicates                                  => scan w/o filterexpression
+                    # if predicate contain all keys && '='              => get_item
+                    # if predicate contain all keys && sk is not '='    => query with filterexpression
+                    # if predicate contain only pk (but table has both pk,sk) => query
+                    # if predicates contain neither pk nor sk           => scan with FilterExpression
+                    # ref: https://boto3.readthedocs.io/en/latest/guide/dynamodb.html#querying-and-scanning
+                    #
+                    # use this, it should get you the name of the keys [''pk, 'sk'] =>
+                    #      l_keys = list(self.describeTables(tableName=self.tableName).values())[0][0]
                     res = table.get_item(Key=kv_data)
                     self.logger.info(" Table \"{}\" data selected".format(self.tableName))
                     if res.keys().__contains__('Item'):

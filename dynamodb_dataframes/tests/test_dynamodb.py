@@ -25,6 +25,7 @@ class TestMethods(unittest.TestCase):
             print (str(dynamodb_sql_api.dynamodb_base_api.run(['table1ss', 'create', '2,pk,S,sk,S'])) + ' created')
             print(str(dynamodb_sql_api.dynamodb_base_api.run(['table1ns', 'create', '2,pk,N,sk,S'])) + ' created')
             print(str(dynamodb_sql_api.dynamodb_base_api.run(['table1nn', 'create', '2,pk,N,sk,N'])) + ' created')
+            print(str(dynamodb_sql_api.dynamodb_base_api.run(['table1_sn', 'create', '2,p_k,S,s_k,N'])) + ' created')
         except:
             self.fail("exception occured")
 
@@ -38,6 +39,12 @@ class TestMethods(unittest.TestCase):
                     ['table1ss', 'insert', "pk,'2',sk,'2',col1,'val2'"])) + ' inserted values 1 1 val1')
             print(str(
                 dynamodb_sql_api.dynamodb_base_api.run(['table1ns', 'insert', "pk,1,sk,'1',col1,'val1'"])) + ' inserted values 1 1 val1')
+            print(str(
+                dynamodb_sql_api.dynamodb_base_api.run(
+                    ['table1ns', 'insert', "pk,22,sk,'  22  '"])) + ' inserted values 1 1 val1')
+            print(str(
+                dynamodb_sql_api.dynamodb_base_api.run(
+                    ['table1_sn', 'insert', "p_k,'  2  2  ',s_k,22.2"])) + ' inserted values 1 1 val1')
             print(str(
                 dynamodb_sql_api.dynamodb_base_api.run(['table1nn', 'insert', "pk,1,sk,1,col1,1000"])) + ' inserted values 1 1 1000')
         except:
@@ -60,6 +67,7 @@ class TestMethods(unittest.TestCase):
             print (dynamodb_sql_api.sql('select * from table1ss'))
             print(dynamodb_sql_api.sql('select * from table1ns'))
             print(dynamodb_sql_api.sql('select * from table1nn'))
+            print(dynamodb_sql_api.sql('select * from table1_sn'))
         except:
             self.fail("exception occured")
 
@@ -85,6 +93,7 @@ class TestMethods(unittest.TestCase):
             print (dynamodb_sql_api.dynamodb_base_api.run(['table1ss' , 'describe']))
             print(dynamodb_sql_api.dynamodb_base_api.run(['table1ns', 'describe']))
             print(dynamodb_sql_api.dynamodb_base_api.run(['table1nn', 'describe']))
+            print(dynamodb_sql_api.dynamodb_base_api.run(['table1_sn', 'describe']))
         except:
             self.fail("exception occured")
 

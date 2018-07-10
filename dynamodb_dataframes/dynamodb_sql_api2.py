@@ -52,9 +52,12 @@ def runSql_API(sql_user_input='', level=logging.WARN):
             rx_table = regex.match(r'\s*(\w+)\s*', inp_left_where)
             l_tables = rx_table.captures(1)
             if inp_right_where != '':
-                rx_where = regex.findall(r"""\s*(([\w-_]*)\s*=\s*(('?).+?(\4))\s*)""", inp_right_where)
-                l_predicate_key = [x[1] for x in rx_where]
-                l_predicate_value = [x[2] for x in rx_where]
+                #rx_where = regex.findall(r"""\s*(([\w-_]*)\s*=\s*(('?).+?(\4))\s*)""", inp_right_where)
+                # improved regex:
+                rx_where = regex.findall(r"""\s*([\w-_]*)\s*=\s*(.+?(?=(\s*and)|;|\n|\r|(\r\n)|$))\s*""", inp_right_where)
+                print (rx_where)
+                l_predicate_key = [x[0].strip() for x in rx_where]
+                l_predicate_value = [x[1].strip() for x in rx_where]
                 l_predicates = []
                 for i in range(0, len(l_predicate_key)):
                     l_predicates.append(l_predicate_key[i])
