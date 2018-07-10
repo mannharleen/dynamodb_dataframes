@@ -17,3 +17,5 @@ script:
 branches:
   only:
     - master
+after-success:
+ - coveralls
