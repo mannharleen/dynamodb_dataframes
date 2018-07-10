@@ -1,4 +1,5 @@
 # dynamodb_dataframes
+[![Build Status](https://travis-ci.org/mannharleen/dynamodb_dataframes.svg?branch=master)](https://travis-ci.org/mannharleen/dynamodb_dataframes)
 
 ## Objective
 
