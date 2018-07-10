@@ -9,7 +9,10 @@ before_script:
   #- ls
   - java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 #
-script: python -m unittest dynamodb_dataframes/tests/test_dynamodb.py
+script:
+ - python -m unittest discover tests
+ - coverage run -m unittest discover tests
+ - coverage report -m --include dynamodb_dataframes\*
 branches:
   only:
     - master
