@@ -1,5 +1,5 @@
 from dynamodb_dataframes import dynamodb_base_api
-import sys, os, logging
+import logging
 import pandas as pd
 import regex
 
