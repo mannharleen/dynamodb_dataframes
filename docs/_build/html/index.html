@@ -1,0 +1,204 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>dynamodb_dataframes &#8212; dynamodb_dataframes 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="dynamodb-dataframes">
+<span id="dynamodb-dataframes"></span><h1>dynamodb_dataframes<a class="headerlink" href="#dynamodb-dataframes" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://travis-ci.org/mannharleen/dynamodb_dataframes"><img alt="Build Status" src="https://travis-ci.org/mannharleen/dynamodb_dataframes.svg?branch=master" /></a>
+<a class="reference external" href="https://coveralls.io/github/mannharleen/dynamodb_dataframes?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/mannharleen/dynamodb_dataframes/badge.svg?branch=master" /></a>
+<a class="reference external" href="https://dynamodb-dataframes.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/dynamodb-dataframes/badge/?version=latest" /></a>
+<a class="reference external" href="https://saythanks.io/to/mannharleen"><img alt="Say Thanks!" src="https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg" /></a></p>
+<div class="section" id="objective">
+<span id="objective"></span><h2>Objective<a class="headerlink" href="#objective" title="Permalink to this headline">¶</a></h2>
+<p>To create an easy to use API for AWS dynamodb that will enable:</p>
+<ol class="simple">
+<li>SQL command line for SQL/DML/DDL operations</li>
+<li>SQL API for all those operations, that will return a dataframe (pandas)</li>
+</ol>
+</div>
+<div class="section" id="motivation">
+<span id="motivation"></span><h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>Two simple motivations:</p>
+<ol class="simple">
+<li>Make the dynamodb API simpler by using SQL, DML and DDL statements</li>
+<li>dynamodb doesn’t allow joins and other complex transformations (sometimes this is required)</li>
+</ol>
+</div>
+<div class="section" id="objective">
+<span id="id1"></span><h2>Objective<a class="headerlink" href="#objective" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li>Creating an API that returns the data in dynamodb as a pandas dataframe. Data transformation made easy!</li>
+</ol>
+</div>
+<div class="section" id="installation">
+<span id="installation"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="from-github">
+<span id="from-github"></span><h3>From github<a class="headerlink" href="#from-github" title="Permalink to this headline">¶</a></h3>
+<p>This is the recommended way (unless I decided to publish this package on pypi)
+Simply run the following in the command/shell prompt</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/mannharleen/dynamodb_dataframes.git
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="from-local-filesystem">
+<span id="from-local-filesystem"></span><h2>From local filesystem<a class="headerlink" href="#from-local-filesystem" title="Permalink to this headline">¶</a></h2>
+<p>This should be only used if you are not able to connect to github from the machine where you need to pip install</p>
+<p>Download the required version file from https://github.com/mannharleen/dynamodb_dataframes/tree/master/dist and copy to the machine lets say on into the folder C:\distThen run the following in the command/shell prompt</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install dynamodb_dataframes --no-index --find-links file://C:<span class="se">\d</span>ist
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage">
+<span id="usage"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-the-sql-api">
+<span id="using-the-sql-api"></span><h3>Using the SQL API:<a class="headerlink" href="#using-the-sql-api" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dynamodb_dataframes</span> <span class="kn">import</span> <span class="n">dynamodb_sql_api</span>
+<span class="kn">from</span> <span class="nn">dynamodb_dataframes</span> <span class="kn">import</span> <span class="n">dynamodb_sql_api2</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1">#-- using api1</span>
+<span class="n">dynamodb_sql_api</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>                                <span class="c1">#-- this will use default config, see below section on custom config</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">dynamodb_sql_api</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;show tables&quot;</span><span class="p">))</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">dynamodb_sql_api</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select * from table1ss&quot;</span><span class="p">))</span>  <span class="c1">#-- prints the returned pandas dataframe</span>
+
+<span class="c1">#-- using api2</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">dynamodb_sql_api2</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;select * from table1ss&quot;</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">))</span>      <span class="c1">#-- prints the returned pandas dataframe and sets the logging level</span>
+</pre></div>
+</div>
+<p>For more examples visit https://github.com/mannharleen/dynamodb_dataframes/tree/master/examples</p>
+</div>
+<div class="section" id="using-the-sql-prompt">
+<span id="using-the-sql-prompt"></span><h3>Using the SQL prompt:<a class="headerlink" href="#using-the-sql-prompt" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python dynamodb_sql_api.py
+sql&gt; show tables<span class="p">;</span>
+sql&gt; describe table1ss<span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configuration-for-dynamodb-server">
+<span id="configuration-for-dynamodb-server"></span><h2>Configuration for dynamodb server<a class="headerlink" href="#configuration-for-dynamodb-server" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li>For the SQL API, configuration can be made either via a config file or via passing parameters progrmatically</li>
+<li>For the SQL prompt, configuration will be asked for. If the user presses enters, default values are taken</li>
+</ol>
+<p>When initializing the SQL API, you can set the config as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dynamodb_sql_api</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="s1">&#39;/home/config.ini&#39;</span><span class="p">)</span>              <span class="c1">#-- if you want to specify location of config file</span>
+<span class="n">dynamodb_sql_api</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">aws_access_key_id</span><span class="o">=</span><span class="n">ABC</span><span class="p">,</span> <span class="o">....</span><span class="p">)</span>     <span class="c1">#-- if you want to specify config as paramters</span>
+</pre></div>
+</div>
+<p>If no configuration is provided, the program defaults to point to local instance of dynamodb, i.e. using the following values:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>DEFAULT<span class="o">]</span>
+<span class="nv">region_name</span> <span class="o">=</span> us-west-2
+<span class="nv">aws_access_key_id</span> <span class="o">=</span>  
+<span class="nv">aws_secret_access_key</span> <span class="o">=</span>  
+<span class="nv">endpoint_url</span> <span class="o">=</span> http://localhost:8000
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dynamodb_dataframes</a><ul>
+<li><a class="reference internal" href="#objective">Objective</a></li>
+<li><a class="reference internal" href="#motivation">Motivation</a></li>
+<li><a class="reference internal" href="#objective">Objective</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#from-github">From github</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#from-local-filesystem">From local filesystem</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#using-the-sql-api">Using the SQL API:</a></li>
+<li><a class="reference internal" href="#using-the-sql-prompt">Using the SQL prompt:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-for-dynamodb-server">Configuration for dynamodb server</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, harleen singh mann.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/index.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
